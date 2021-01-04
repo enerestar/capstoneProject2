@@ -107,41 +107,165 @@
 
 
     <!--MODAL-->
-    <div class="modal" id="myModal">
+    <div class="modal" id="modal">
         <div class="modal-dialog">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Modal Heading</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
+            <div class="modal-content" style="padding:30px">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
 
                 <!-- Modal body -->
-                <div class="modal-body">
-                    Modal body..
+                <div class="form-group">
+                    <label for="usr">ID:</label>
+                    <input  type="number" class="form-control" id="txtid"readonly>
+                </div>
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="txtname">
                 </div>
 
+                <div class="form-group">
+                    <label for="name">Class:</label>
+                    <input type="text" class="form-control" id="txtclass">
+                </div>
+                <div class="row" style="padding:30px">
+                    <input class="btn btn-primary col" type="button" onclick="SaveData()" value="save" />
+                    <input class="btn btn-success col" type="button" onclick="GetStudents()" value="retrieve" />
+                </div>
+                <div class="form-group">
+                    <label for="name">Course:</label>
+                    <input type="text" class="form-control" id="txtcourse">
+                </div>
+                <div class="row" style="padding:30px">
+                    <input class="btn btn-primary col" type="button" onclick="SaveCourse()" value="save" />
+                    <input class="btn btn-success col" type="button" onclick="GetCourse()" value="retrieve" />
+                </div>
+                <br />
+                <br />
                 <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-
+                <!--<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>-->
+                <table class="table table-striped" id="td1">
+                    <thead>
+                        <tr>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         </div>
     </div>
 
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script>function SaveData() {
 
-    <!-- Image of location/map -->
-    <!--<img src="/img/bg.jpeg" class="w3-image w3-greyscale-min" style="width:100%">-->
-    <!-- Footer -->
-    <!--<footer class="container">
-        <i class="fa fa-facebook-official"></i>
-        <i class="fa fa-instagram w3-hover-opacity"></i>
-        <i class="fa fa-snapchat w3-hover-opacity"></i>
-        <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-        <i class="fa fa-twitter w3-hover-opacity"></i>
-        <i class="fa fa-linkedin w3-hover-opacity"></i>
-    </footer>-->
+            var student = {};
+            student.id = $("#txtid").val()
+            student.name = $("#txtname").val()
+            student.class = $("#txtclass").val()
+            if (student.name == undefined || student.class == undefined
+                || student.name == "" || student.class == "") {
+                alert("error");
+            }
+            alert(student.name);
+            alert(student.class);
+
+            if ($("#txtid").val() == undefined || $("#txtid").val() == "") {
+                $.post("http://localhost:3000/students", student)
+                    .done(res => Success(res))
+                    .fail(res => Error(res));
+            } else {
+                console.log(student.name);
+                console.log(student.id);
+                $.ajax({
+                    type: 'PUT',
+                    url: 'http://localhost:3000/students/' + student.id,
+                    data: student
+                })
+                    .done(res => Success(res))
+                    .fail(res => Error(res));
+            }
+        }
+
+        function GetStudents() {
+            $.get("http://localhost:3000/students")
+                .done(res => SuccessGet(res))
+                .fail(res => Error(res));
+        }
+
+        function SaveCourse() {
+            var course = {};
+            course.name = $("#txtcourse").val()
+            if (course.name == undefined || course.name == "") {
+                alert(course.name);
+                $.post("http://localhost:3000/courses", course)
+                    .done(res => Success(res))
+                    .fail(res => Error(res));
+            }
+        }
+
+        function DeleteStudent(id) {
+            var tdid = $('#td1').find('tr:eq(' + id + ')').find('td:eq(0)');
+            var sid = tdid.html();
+            $("#txtid").val(sid);
+            $.ajax({
+                type: 'DELETE',
+                url: 'http://localhost:3000/students/' + id
+            })
+                .done(res => SuccessDel(res))
+                .fail(res => Error(res));
+        }
+
+        function SuccessDel() {
+            $("#txtid").val("");
+            $("#txtname").val("");
+            $("#txtclass").val("");
+            alert("Deleted successfully");
+            // get all records
+
+            GetStudents();
+        }
+
+        function EditStudent(id) {
+            var tdid = $('#td1').find('tr:eq(' + id + ')').find('td:eq(0)');
+            var sid = tdid.html();
+            var tdname = $('#td1').find('tr:eq(' + id + ')').find('td:eq(1)');
+            var sname = tdname.html();
+            var tdclass = $('#td1').find('tr:eq(' + id + ')').find('td:eq(2)');
+            var sclass = tdclass.html();
+
+            $("#txtid").val(sid);
+            $("#txtname").val(sname);
+            $("#txtclass").val(sclass);
+
+
+        }
+        $(document).ready(function () {
+        });
+
+        function SuccessGet(res) {
+            for (temp of res) {
+                $('#td1')
+                    .append('<tr id="' + temp.id + '"><td>' + temp.id + '</td><td>'
+                        + temp.name + '</td><td>'
+                        + temp.class + '</td><td>'
+                        + '<a href="#" onclick="EditStudent(' + temp.id + ')">edit<a/></td><td>'
+                        + '<a href="#" onclick="DeleteStudent(' + temp.id + ')"> delete <a/></td ></tr > ');
+            }
+        }
+        function Success(res) {
+            // clea text boxes
+
+            $("#txtid").val("");
+            $("#txtname").val("");
+            $("#txtclass").val("");
+            alert("Added successfully");
+            // get all records
+
+            GetStudents();
+        }
+        function Error(res) {
+            alert("error");
+            console.log(res);
+        }</script>
 </body>
 </html>

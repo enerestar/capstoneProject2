@@ -112,6 +112,8 @@
             });
 
             function SuccessGet(res) {
+                //$("#td1 tr:not(:first)").remove();
+
                 for (temp of res) {
                     $('#td1')
                         .append('<tr id="' + temp.id + '"><td>' + temp.id + '</td><td>'

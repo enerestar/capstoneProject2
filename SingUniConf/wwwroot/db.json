@@ -1,0 +1,29 @@
+{
+  "students": [],
+  "courses": [
+    {
+      "id": 1,
+      "name": "db"
+    },
+    {
+      "name": "c#",
+      "id": 2
+    },
+    {
+      "name": "dd",
+      "id": 3
+    },
+    {
+      "name": "ds",
+      "id": 4
+    },
+    {
+      "name": "z",
+      "id": 5
+    },
+    {
+      "name": "d",
+      "id": 6
+    }
+  ]
+}
