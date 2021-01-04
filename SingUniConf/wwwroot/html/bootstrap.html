@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+</head>
+<body>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark" ">
+
+        <!-- LINKS -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#students">Students</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#courses">Courses</a>
+            </li>
+        </ul>
+
+    </nav>
+
+    <!--CAROUSEL-->
+    <div id="slideshow" class="carousel slide" data-ride="carousel">
+
+        <!-- Indicators -->
+        <ul class="carousel-indicators">
+            <li data-target="#slideshow" data-slide-to="0" class="active"></li>
+            <li data-target="#slideshow" data-slide-to="1"></li>
+            <li data-target="#slideshow" data-slide-to="2"></li>
+        </ul>
+
+        <!-- SLIDESHOW -->
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="/img/uni1.jpg" style="width: 100%; height: 780px">
+                <div class="carousel-caption">
+                    <h3>OUR CAMPUS</h3>
+                    <p>The atmosphere in Consoto University is lorem ipsum!</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="/img/uni2.jpg" style="width: 100%; height: 780px">
+                <div class="carousel-caption">
+                    <h3 class="text-dark">OUR STUDENTS</h3>
+                    <p class="text-dark">The students makes the campus vibrant and fun</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="/img/bg.png" style="width: 100%; height: 780px">
+                <div class="carousel-caption">
+                    <h3>GRADUATION</h3>
+                    <p>Thank you Consoto - A night we won't forget!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--STUDENTS SECTION-->
+    <div class=".container-fluid jumbotron text-center" id="students">
+        <h1 class="text-dark">Contoso University</h1>
+        <p class="text-dark">
+            The University of Consoto is an urban research university that has driven new ways of thinking since 2020s. Our commitment to free and open inquiry draws inspired scholars to our global campuses, where ideas are born that challenge and change the world.
+            We empower individuals to challenge conventional thinking in pursuit of original ideas. Students in the College develop critical, analytic, and writing skills in our rigorous, interdisciplinary core curriculum. Through graduate programs, students test their ideas with Uscholars, and become the next generation of leaders in academia, industry, nonprofits, and government.
+        </p>
+    </div>
+
+    <!--COURSES AND DATA SECTION-->
+    <div class="container text-center" id="courses" style="height: 800px">
+        <div class="row">
+            <div class="col-sm-4">
+                <h3>STUDENTS</h3>
+                <p>Click to see our students</p>
+                <img src="/img/submarine.jpg" class="text-muted" data-toggle="modal" data-target="#modal"
+                     alt="Click to see our students" style="width:60%"
+                     onclick="document.getElementById('modal').style.display='block'">
+            </div>
+            <div class="col-sm-4">
+                <h3>COURSES</h3>
+                <p>Click to see our courses</p>
+                <img src="/img/submarine.jpg" class="text-muted" data-toggle="modal" data-target="#modal"
+                     alt="Click to see our students" style="width:60%"
+                     onclick="document.getElementById('modal').style.display='block'">
+            </div>
+            <div class="col-sm-4">
+                <h3>CURRICULUM</h3>
+                <p>Click to see our curriculum</p>
+                <img src="/img/submarine.jpg" class="text-muted" data-toggle="modal" data-target="#modal"
+                     alt="Click to see our students" style="width:60%"
+                     onclick="document.getElementById('modal').style.display='block'">
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--MODAL-->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Modal Heading</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    Modal body..
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Image of location/map -->
+    <!--<img src="/img/bg.jpeg" class="w3-image w3-greyscale-min" style="width:100%">-->
+    <!-- Footer -->
+    <!--<footer class="container">
+        <i class="fa fa-facebook-official"></i>
+        <i class="fa fa-instagram w3-hover-opacity"></i>
+        <i class="fa fa-snapchat w3-hover-opacity"></i>
+        <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+        <i class="fa fa-twitter w3-hover-opacity"></i>
+        <i class="fa fa-linkedin w3-hover-opacity"></i>
+    </footer>-->
+</body>
+</html>
