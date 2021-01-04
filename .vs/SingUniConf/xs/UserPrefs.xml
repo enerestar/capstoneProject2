@@ -1,0 +1,31 @@
+﻿<Properties StartupConfiguration="{FB776864-704B-4A59-B51C-3CAD74340E93}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="SingUniConf/wwwroot/html/finale.html">
+    <Files>
+      <File FileName="SingUniConf/wwwroot/html/StudentRegistration.html" Line="14" Column="56" />
+      <File FileName="SingUniConf/wwwroot/html/jquery.html" />
+      <File FileName="SingUniConf/wwwroot/html/finale.html" Line="102" Column="78" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="SingUniConf" expanded="True">
+            <Node name="SingUniConf" expanded="True">
+              <Node name="wwwroot" expanded="True">
+                <Node name="html" expanded="True">
+                  <Node name="finale.html" selected="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.SingUniConf PreferredExecutionTarget="/Applications/Firefox.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

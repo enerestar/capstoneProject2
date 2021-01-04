@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Student Registration</title>
+</head>
+<style>
+    label {
+        display: inline-block;
+        width: 180px;
+        text-align: right;
+    }
+</style>
+<body style="background-image: url('../img/bg2.jpeg')"> Student Registration
+    <div class="block" style="background-image: url('../img/bg.png');">
+        <label style="color:blueviolet; font-size:20px"><b>Username</b></label>
+        <input type="text" id="idname" placeholder="Enter Username" name="uname" required>
+        <br />
+        <label style="color:cornflowerblue; font-size:20px"><b>Email</b></label>
+        <input type="text" id="idemail" placeholder="Enter Email" name="uemail" required>
+        <br />
+        <label style="color:seagreen; font-size:15px"><b>Password</b></label>
+        <input type="password" id="idpw" placeholder="Enter Password" name="psw" required>
+        <br />
+        <label style="color:magenta; font-size:15px"><b>Re-type Password</b></label>
+        <input type="password" id="idpw2" placeholder="Re-type Password" name="psw" required>
+        <br />
+        <button type="button" style="position:relative; left:180px" onclick="CheckPassword()">Register</button>
+        <div>
+            Tests:
+            <button type="button" style="position:relative; left:180px" onclick="CheckSamePassword()">Same</button>
+
+            <button type="button" style="position:relative; left:180px" onclick="CheckDiffPassword()">Different</button>
+
+        </div>
+    </div>
+    <script>
+        function CheckPassword() {
+            let pw = document.getElementById("idpw").value;
+            let pw2 = document.getElementById("idpw2").value;
+            if (pw === pw2) {
+                alert("Passwords match");
+            } else {
+                alert("Passwords do not match");
+                document.getElementById("idpw").style.backgroundColor = "palevioletred";
+                document.getElementById("idpw2").style.backgroundColor = "palevioletred";
+            }
+        }
+
+        function CheckSamePassword() {
+            document.getElementById("idpw").value = "ooo";
+            document.getElementById("idpw2").value = "ooo";
+            console.log("Checking that pw1 = ooo and pw2 = ooo will be a match.")
+            console.log(CheckPassword());
+        }
+
+        function CheckDiffPassword() {
+            document.getElementById("idpw").value = "ooo";
+            document.getElementById("idpw2").value = "rrr";
+            console.log("Checking that pw1 = ooo and pw2 = rrr will not be a match.")
+            console.log(CheckPassword());
+        }
+    </script>
+</body>
+</html>
