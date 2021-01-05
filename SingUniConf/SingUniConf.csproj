@@ -7,5 +7,6 @@
   <ItemGroup>
     <Folder Include="wwwroot\html\" />
     <Folder Include="wwwroot\img\" />
+    <Folder Include="wwwroot\html\practice\" />
   </ItemGroup>
 </Project>
