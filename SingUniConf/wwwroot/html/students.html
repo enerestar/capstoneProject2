@@ -7,8 +7,11 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark" ">
 
@@ -48,7 +51,7 @@
             <input ID="buttadd" class="btn btn-primary col" type="button" onclick="SaveData()" value="ADD STUDENT" />
             <input class="btn btn-success col" type="button" onclick="GetStudents()" value="GET ALL STUDENTS" />
         </div>
-        
+
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -64,9 +67,7 @@
         </table>
     </div>
 
-    <script>
-
-        var studentData = {
+    <script>var studentData = {
             students: [],
             courses: [],
         };
@@ -128,7 +129,7 @@
             }
 
             if ($("#txtid").val() == undefined || $("#txtid").val() == "") {
-                // New student 
+                // New student
                 GetCourses()
                     .done(() => {
                         var isCourseFound = false;
@@ -175,7 +176,7 @@
                         })
                         .fail(res => Error(res));
                 });
-            
+
         }
         function SuccessAdd() {
             updateForm({ id: "", name: "", date: "" });
@@ -224,7 +225,6 @@
         function Error(res) {
             alert(res);
             console.log(res);
-        }
-    </script>
+        }</script>
 </body>
 </html>
