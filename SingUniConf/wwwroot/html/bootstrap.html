@@ -83,21 +83,41 @@
         <div class="row">
             <div class="col">
                 <h3>STUDENTS</h3>
-                <p>Click to see our students</p>
-                <img src="/img/submarine.jpg" class="text-muted" data-toggle="modal" data-target="#studentmodal"
-                     alt="" style="width:60%"
-                     onclick="document.getElementById('modal').style.display='block'">
+                <div>Student count: <span id="studentcount">Loading...</span></div>
             </div>
             <div class="col">
                 <h3>COURSES</h3>
-                <p>Click to see our courses</p>
-                <img src="/img/submarine.jpg" class="text-muted" data-toggle="modal" data-target="#coursemodal"
-                     alt="" style="width:60%"
-                     onclick="document.getElementById('modal').style.display='block'">
+                <div>Course count: <span id="coursecount">Loading...</span></div>
             </div>
         </div>
     </div>
 
+    <script>
+        function GetStudents() {
+            return $.get("http://localhost:3000/students")
+                .done(res => {
+                    var studentCount = res.length;
+                    $("#studentcount").text(studentCount);
 
+                })
+                .fail(res => Error(res));
+        }
+        function GetCourses() {
+            return $.get("http://localhost:3000/courses")
+                .done(res => {
+                    var courseCount = res.length;
+                    $("#coursecount").text(courseCount);
+
+                })
+                .fail(res => Error(res));
+        }
+        function Error(res) {
+            alert(res);
+            console.log(res);
+        }
+        GetStudents();
+        GetCourses();
+
+    </script>
 </body>
 </html>
