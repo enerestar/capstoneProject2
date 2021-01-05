@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark" ">
+
+        <!-- LINKS -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/html/students.html">Students</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/html/courses.html">Courses</a>
+            </li>
+        </ul>
+
+    </nav>
+    <div style="padding:100px">
+        <div class="form-group">
+            <label for="usr">ID:</label>
+            <input type="number" class="form-control" id="txtid" readonly>
+        </div>
+        <div class="form-group">
+            <label for="name">Course:</label>
+            <input type="text" class="form-control" id="txtcourse">
+        </div>
+        <div class="row" style="padding:30px">
+            <input id="buttadd" class="btn btn-primary col" type="button" onclick="AddCourse()" value="ADD COURSE" />
+            <input class="btn btn-success col" type="button" onclick="GetCourse()" value="GET ALL COURSES" />
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Course</th>
+                </tr>
+            </thead>
+        </table>
+        <table class="table table-striped" id="td2">
+            </table>
+    </div>
+    <script>function AddCourse() {
+            var course = {};
+            course.id = $("#txtid").val();
+            course.name = $("#txtcourse").val()
+
+            if (course.name == undefined || course.name == "") {
+                alert("Field should not be empty");
+                return;
+            }
+            alert(course.name);
+            if ($("#txtid").val() == undefined || $("#txtid").val() == "") {
+                $.post("http://localhost:3000/courses", course)
+                    .done(res => Success(res))
+                    .fail(res => Error(res));
+            } else {
+                console.log(course.name);
+                console.log(course.id);
+                $.ajax({
+                    type: 'PUT',
+                    url: 'http://localhost:3000/courses/' + course.id,
+                    data: course
+                })
+                    .done(res => {
+                        $("#buttadd").val("ADD COURSE");
+                        Success(res)
+                    })
+                    .fail(res => Error(res));
+            }
+        }
+
+        function GetCourse() {
+            $.get("http://localhost:3000/courses")
+                .done(res => {
+                    courses = res;
+                    console.log(courses);
+                    CoursesTable(res);
+                })
+                .fail(res => Error(res));
+        }
+
+        function DeleteCourse(id) {
+            $.ajax({
+                type: 'DELETE',
+                url: 'http://localhost:3000/courses/' + id
+            })
+                .done(res => Success(res))
+                .fail(res => {
+                    console.log(res)
+                    return res;
+                });
+        }
+        var courses = [];
+        function EditCourse(id) {
+            $("#buttadd").val("EDIT COURSE");
+            console.log("ougrsedtrfg");
+            console.log(id);
+            console.log("ougrsedtrfg");
+            console.log(courses);
+            for (var i = 0; i < courses.length; i++) {
+                var course = courses[i];
+                if (course.id === id) {
+                    $("#txtid").val(course.id);
+                    $("#txtcourse").val(course.name);
+                    return;
+                }
+            }
+        }
+
+        function CoursesTable(res) {
+            $('#td2').empty();
+            for (temp of res) {
+                $('#td2')
+                    .append('<tr id="' + temp.id + '"><td>' + temp.id + '</td><td>'
+                        + temp.name + '</td><td>'
+                        + '<a href="#" onclick="EditCourse(' + temp.id + ')">edit<a/></td><td>'
+                        + '<a href="#" onclick="DeleteCourse(' + temp.id + ')"> delete <a/></td ></tr > ');
+            }
+        }
+
+        function Success(res) {
+            $("#txtid").val("");
+            $("#txtcourse").val("");
+            alert("Success!");
+            GetCourse();
+        }
+        function Error(res) {
+            alert("Error");
+            console.log(res);
+        }
+
+    </script>
+</body>
+</html>

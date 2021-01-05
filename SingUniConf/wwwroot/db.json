@@ -1,29 +1,63 @@
 {
-  "students": [],
+  "students": [
+    {
+      "id": 1,
+      "name": "nn",
+      "date": "2021-01-16",
+      "course": "Math"
+    },
+    {
+      "id": 2,
+      "name": "jk",
+      "date": "2021-01-27",
+      "course": "ll"
+    },
+    {
+      "id": 3,
+      "name": "qq",
+      "date": "2021-01-01"
+    },
+    {
+      "id": 4,
+      "name": "hello",
+      "date": "2020-01-02"
+    },
+    {
+      "id": 5,
+      "name": "qw",
+      "date": "1919-01-01"
+    },
+    {
+      "id": 6,
+      "name": "nn",
+      "date": "2019-01-01"
+    },
+    {
+      "id": 7,
+      "name": "nn",
+      "date": "2020-01-01"
+    },
+    {
+      "id": 8,
+      "name": "Serene Lim",
+      "date": "2021-01-01",
+      "course": "Program"
+    },
+    {
+      "id": 9,
+      "name": "Serene Quek",
+      "date": "2020-02-01",
+      "course": "ll"
+    }
+  ],
   "courses": [
     {
       "id": 1,
-      "name": "db"
+      "name": "ll"
     },
     {
-      "name": "c#",
-      "id": 2
-    },
-    {
-      "name": "dd",
-      "id": 3
-    },
-    {
-      "name": "ds",
-      "id": 4
-    },
-    {
-      "name": "z",
-      "id": 5
-    },
-    {
-      "name": "d",
-      "id": 6
+      "id": 2,
+      "name": "oo"
     }
   ]
 }

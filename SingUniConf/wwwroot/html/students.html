@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark" ">
+
+        <!-- LINKS -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/html/students.html">Students</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/html/courses.html">Courses</a>
+            </li>
+        </ul>
+
+    </nav>
+    <div style="padding:100px">
+        <div class="form-group">
+            <label for="usr">ID:</label>
+            <input type="number" class="form-control" id="txtid" readonly>
+        </div>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="txtname">
+        </div>
+
+        <div class="form-group">
+            <label for="name">Admission Date:</label>
+            <input type="date" class="form-control" id="datepicker" width="270">
+        </div>
+        <div class="form-group">
+            <label for="name">Course:</label>
+            <input type="text" class="form-control" id="txtcourse" width="270">
+        </div>
+        <div class="row" style="padding:30px">
+            <input ID="buttadd" class="btn btn-primary col" type="button" onclick="SaveData()" value="ADD STUDENT" />
+            <input class="btn btn-success col" type="button" onclick="GetStudents()" value="GET ALL STUDENTS" />
+        </div>
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Admission Date</th>
+                    <th>Course</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="td1"></tbody>
+        </table>
+    </div>
+
+    <script>
+
+        var studentData = {
+            students: [],
+            courses: [],
+        };
+
+        function StudentsTable() {
+            $('#td1').empty();
+            for (var student of studentData.students) {
+                $('#td1')
+                    .append('<tr id="' + student.id + '"><td>' + student.id + '</td><td>'
+                        + student.name + '</td><td>'
+                        + student.date + '</td><td>'
+                        + student.course + '</td><td>'
+                        + '<a href="#" onclick="EditStudent(' + student.id + ')">edit<a/></td><td>'
+                        + '<a href="#" onclick="DeleteStudent(' + student.id + ')"> delete <a/></td ></tr > ');
+            }
+        }
+
+        function getFormData() {
+            return {
+                id: $("#txtid").val(),
+                name: $("#txtname").val(),
+                date: $("#datepicker").val(),
+                course: $("#txtcourse").val(),
+            };
+        }
+        function updateForm(student) {
+            $("#txtid").val(student.id);
+            $("#txtname").val(student.name);
+            $("#datepicker").val(student.date);
+            $("#txtcourse").val(student.course);
+        }
+
+        function GetCourses() {
+            return $.get("http://localhost:3000/courses")
+                .done(res => {
+                    studentData.courses = res;
+                })
+                .fail(res => Error(res));
+        }
+
+        function GetStudents() {
+            return $.get("http://localhost:3000/students")
+                .done(res => {
+                    studentData.students = res;
+                    StudentsTable(res);
+                })
+                .fail(res => Error(res));
+        }
+
+
+        function SaveData() {
+
+            var student = getFormData();
+
+            if (student.name == undefined || student.date == undefined
+                || student.name == "" || student.date == "") {
+                alert("error");
+                return;
+            }
+
+            if ($("#txtid").val() == undefined || $("#txtid").val() == "") {
+                // New student 
+                GetCourses()
+                    .done(() => {
+                        var isCourseFound = false;
+                        for (var course of studentData.courses) {
+                            if (course.name === student.course) {
+                                isCourseFound = true;
+                                break;
+                            }
+                        }
+                        if (!isCourseFound) {
+                            Error("Course not found");
+                            return;
+                        }
+                        $.post("http://localhost:3000/students", student)
+                            .done(res => SuccessAdd())
+                            .fail(res => Error(res));
+
+                    })
+                return;
+            }
+
+            // Update student
+            GetCourses()
+                .done(() => {
+                    var isCourseFound = false;
+                    for (var course of studentData.courses) {
+                        if (course.name === student.course) {
+                            isCourseFound = true;
+                            break;
+                        }
+                    }
+                    if (!isCourseFound) {
+                        Error("Course not found");
+                        return;
+                    }
+                    $.ajax({
+                        type: 'PUT',
+                        url: 'http://localhost:3000/students/' + student.id,
+                        data: student
+                    })
+                        .done(res => {
+                            $("#buttadd").val("ADD STUDENT");
+                            SuccessEdit()
+                        })
+                        .fail(res => Error(res));
+                });
+            
+        }
+        function SuccessAdd() {
+            updateForm({ id: "", name: "", date: "" });
+            alert("Added successfully");
+            GetStudents();
+        }
+        function SuccessEdit() {
+            updateForm({ id: "", name: "", date: "" });
+            alert("Updated successfully");
+            GetStudents();
+        }
+
+
+        function DeleteStudent(id) {
+            $.ajax({
+                type: 'DELETE',
+                url: 'http://localhost:3000/students/' + id
+            })
+                .done(res => SuccessDel(res))
+                .fail(res => {
+                    console.log(res)
+                    return res;
+                });
+        }
+        function SuccessDel() {
+            updateForm({ id: "", name: "", date: "" });
+            alert("Deleted successfully");
+            GetStudents();
+        }
+
+        function EditStudent(id) {
+
+            $("#buttadd").val("EDIT STUDENT");
+
+            for (var i = 0; i < studentData.students.length; i++) {
+                var student = studentData.students[i];
+                if (student.id === id) {
+                    updateForm(student);
+                    return;
+                }
+            }
+        }
+
+
+
+        function Error(res) {
+            alert(res);
+            console.log(res);
+        }
+    </script>
+</body>
+</html>
