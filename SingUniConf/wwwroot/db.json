@@ -4,7 +4,7 @@
       "id": 1,
       "name": "nn",
       "date": "2021-01-16",
-      "course": "Math"
+      "course": "oo"
     },
     {
       "id": 2,
@@ -20,7 +20,8 @@
     {
       "id": 4,
       "name": "hello",
-      "date": "2020-01-02"
+      "date": "2020-01-02",
+      "course": "ll"
     },
     {
       "id": 5,

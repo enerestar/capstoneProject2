@@ -10,6 +10,7 @@
     <script src="../node_modules/jquery/dist/jquery.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- NAVBAR -->
@@ -45,8 +46,16 @@
         </div>
         <div class="form-group">
             <label for="name">Course:</label>
-            <input type="text" class="form-control" id="txtcourse" width="270">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Select course
+                </button>
+                <div class="dropdown-menu" id="options" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" value="">Loading courses...</a>
+                </div>
+            </div>
         </div>
+
         <div class="row" style="padding:30px">
             <input ID="buttadd" class="btn btn-primary col" type="button" onclick="SaveData()" value="ADD STUDENT" />
             <input class="btn btn-success col" type="button" onclick="GetStudents()" value="GET ALL STUDENTS" />
@@ -67,7 +76,8 @@
         </table>
     </div>
 
-    <script>var studentData = {
+    <script>
+        var studentData = {
             students: [],
             courses: [],
         };
@@ -85,19 +95,43 @@
             }
         }
 
+
+        function DropdownOptions() {
+            GetCourses().done((courses) => {
+                studentData.courses = courses;
+                $('#options').empty();
+                for (var course of studentData.courses) {
+                    $('#options').append(
+                        '<a class="dropdown-item" value="' + course.name + '">' + course.name + '</a>');
+                }
+                $('#options a').on('click', function () {
+                    SelectCourse($(this).text());
+                });
+            })
+        }
+        DropdownOptions();
+
+        function SelectCourse(courseName) {
+            $('.dropdown-toggle').text(courseName);
+        }
+
         function getFormData() {
             return {
                 id: $("#txtid").val(),
                 name: $("#txtname").val(),
                 date: $("#datepicker").val(),
-                course: $("#txtcourse").val(),
+                course: $(".dropdown-toggle").text(),
             };
         }
         function updateForm(student) {
             $("#txtid").val(student.id);
             $("#txtname").val(student.name);
             $("#datepicker").val(student.date);
-            $("#txtcourse").val(student.course);
+            if (student.course) {
+                $(".dropdown-toggle").text(student.course);
+            } else {
+                $(".dropdown-toggle").text('Select course');
+            }
         }
 
         function GetCourses() {
@@ -117,7 +151,6 @@
                 .fail(res => Error(res));
         }
 
-
         function SaveData() {
 
             var student = getFormData();
@@ -130,6 +163,7 @@
 
             if ($("#txtid").val() == undefined || $("#txtid").val() == "") {
                 // New student
+
                 GetCourses()
                     .done(() => {
                         var isCourseFound = false;
@@ -219,7 +253,6 @@
                 }
             }
         }
-
 
 
         function Error(res) {

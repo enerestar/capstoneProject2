@@ -1,9 +1,9 @@
 ﻿<Properties StartupConfiguration="{FB776864-704B-4A59-B51C-3CAD74340E93}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="SingUniConf/wwwroot/html/jquery.html">
+  <MonoDevelop.Ide.Workbench>
     <Files>
-      <File FileName="SingUniConf/wwwroot/html/bootstrap.html" Line="76" Column="38" />
-      <File FileName="SingUniConf/wwwroot/html/students.html" Line="113" Column="9" />
-      <File FileName="SingUniConf/wwwroot/html/courses.html" Line="86" Column="31" />
+      <File FileName="SingUniConf/wwwroot/html/bootstrap.html" Line="91" Column="1" />
+      <File FileName="SingUniConf/wwwroot/html/students.html" Line="228" Column="10" />
+      <File FileName="SingUniConf/wwwroot/html/courses.html" Line="11" Column="1" />
       <File FileName="SingUniConf/wwwroot/db.json" Line="1" Column="1" />
       <File FileName="SingUniConf/wwwroot/html/finale.html" Line="1" Column="1" />
       <File FileName="SingUniConf/wwwroot/html/jquery.html" Line="1" Column="1" />
@@ -16,7 +16,7 @@
             <Node name="SingUniConf" expanded="True">
               <Node name="wwwroot" expanded="True">
                 <Node name="html" expanded="True">
-                  <Node name="jquery.html" selected="True" />
+                  <Node name="bootstrap.html" selected="True" />
                 </Node>
               </Node>
             </Node>
